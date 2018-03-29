@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Text Summarizer Options
+    </title>
+</head>
+
+<body>
+    <div class="form-signin">
+        <div class="text-center mb-4">
+            <img class="mb-4" src="images/sum48.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Text Summarizer</h1>
+            <p>Update your preferences
+                <i>
+                    <code>text-summarizer v1.0</code>
+                </i>
+            </p>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="summaryIn">Show Summary In</label>
+            <select id="summaryIn" class="form-control">
+                <option selected value="window"> New overlay window </option>
+                <option value="notification"> Notification popup </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="summaryOf">Text to Summarize</label>
+            <select id="summaryOf" class="form-control">
+                <option selected value="text"> Selected text </option>
+                <option value="page"> Compelete page </option>
+            </select>
+        </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" id="tts" checked> Say out the summary loudly!
+            </label>
+        </div>
+        <button class="btn btn-lg btn-success btn-block" id="update">Update</button>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2018-2019</p>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-success"  id="exampleModalLongTitle"> Preferences Updated Successfully!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <center><button type="button" id="close" class="btn btn-success" data-dismiss="modal">Thank You</button></center>
+                      </div>
+            </div>
+        </div>
+    </div>
+</body>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link href="css/floating-labels.css" rel="stylesheet">
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/options.js">  </script>
+
+</html>
