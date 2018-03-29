@@ -21,14 +21,29 @@ chrome.contextMenus.onClicked.addListener(function (clickData) {
             var summary;
             //when user preference is to get summary of whole page
             if (preferences.summaryOf == 'page') {
-                chrome.storage.sync.get('allText', function (data) {
-                    summary = summarizeText(data.allText);
-                    showSummary(summary, clickData, preferences);
-                    //if user has text to speech enabled
-                    if (preferences.tts) {
-                        chrome.tts.speak(summary);
-                    }
+                //get current tab id
+                chrome.tabs.query({
+                    active: true,
+                    lastFocusedWindow: true
+                }, function (tabs) {
+                    var tab = tabs[0].id;
+                    //send message to the curret tab to read all the text and store it in localstorage 
+                    chrome.tabs.sendMessage(tab, "readAllText", function (response) {
+                        //get text all the text of current tab from the local storage
+                        chrome.storage.sync.get('allText', function (data) {
+                            //summarize the text
+                            summary = summarizeText(data.allText);
+                            //show the summary
+                            showSummary(summary, clickData, preferences);
+                            //if user has text to speech enabled
+                            if (preferences.tts) {
+                                chrome.tts.speak(summary);
+                            }
+                        });
+                    });
+
                 });
+
             }
             else {
                 //get the selectedData in summary
@@ -79,5 +94,15 @@ function showSummary(summary, clickData, preferences) {
 
 //Summarizes text
 function summarizeText(text) {
-    return text;
+    //Summarization library used from https://github.com/wkallhof/js-summarize. Thanks to wkallhof! 
+    var summary = "";
+    var summarizer = new JsSummarize(
+        {
+            returnCount: 3
+        });
+    var summaryArr = summarizer.summarize("", text);
+    summaryArr.forEach(function (sentence) {
+        summary += ("<li>" + sentence + "</li>");
+    });
+    return summary;
 }

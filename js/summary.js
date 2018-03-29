@@ -1,5 +1,5 @@
 $(function(){
     chrome.storage.sync.get(['summary'], function(data){
-        $('#summary').text(data.summary);
+        $('#summary').html(data.summary);
     });
 });
